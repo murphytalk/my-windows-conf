@@ -48,7 +48,7 @@ if exist c:\Users\murphytalk (
      set MYHOME=c:\Users\murph
   )
   else(
-     goto DONE
+     goto alldone
   )
 )
 
@@ -61,6 +61,6 @@ for %%f in (%D%\*) do (
 )
 
 
-:DONE
+:alldone
 %ORG_DIR:~0,2%
 cd %ORG_DIR%
