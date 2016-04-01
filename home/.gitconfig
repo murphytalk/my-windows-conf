@@ -1,0 +1,11 @@
+[filter "lfs"]
+	smudge = git-lfs smudge %f
+	required = true
+	clean = git-lfs clean %f
+[user]
+	name = Mu Lu
+	email = murphytalk@gmail.com
+[color]
+	ui = true
+[push]
+	default = simple
