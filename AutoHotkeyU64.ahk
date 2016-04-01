@@ -83,7 +83,7 @@ EnumPuttyWnd()
 }
 
 #c::
-Run C:\Apps\ConEmu\ConEmu64.exe
+RunApp2("C:\Apps\ConEmu\ConEmu64.exe","ahk_class VirtualConsoleClass")
 return 
 
 ^!n::
@@ -124,7 +124,7 @@ else{
 return
 
 ^!g::
-RunApp2("D:\work\msys2-config\msys2.cmd","ahk_class mintty")
+RunApp2("c:\msys64\my-msys2.cmd","ahk_class mintty")
 return
 
 ^!k::

@@ -4,8 +4,12 @@ rem What it does is :
 rem
 rem  1) go to msys2's /usr/bin and make vi -> vim link
 rem  2) go to msys2's /etc/profile.d and make links to all scripts under this project's profile.d folder
-rem  3) find and go to normal user's home, make links to all scripts under this projects's home foler
+rem  3) go to msys's install dir and make link to msys2.cmd
+rem  4) find and go to normal user's home, make links to all scripts under this projects's home foler
+rem
+rem  It won't try to create the link if it already exists.
 rem 
+
 @echo off
 set ORG_DIR=%CD%
 set MYPATH=%~dp0
@@ -28,6 +32,9 @@ for %%f in (%D%\*) do (
     rem use for/? to see explanation of all modifiers
     call %MKLINK% %%~nxf %D%\%%~nxf 
 )
+
+cd %MSYS%
+call %MKLINK% my-msys2.cmd %MSYS2CONF%\msys2.cmd
 
 rem the following code only gets elevated user's my doc path ...
 rem save My document path to var mydocuments
