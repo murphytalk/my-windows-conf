@@ -1,3 +1,11 @@
+rem
+rem This batch needs to be run elevated
+rem What it does is :
+rem
+rem  1) go to msys2's /usr/bin and make vi -> vim link
+rem  2) go to msys2's /etc/profile.d and make links to all scripts under this project's profile.d folder
+rem  3) find and go to normal user's home, make links to all scripts under this projects's home foler
+rem 
 @echo off
 set ORG_DIR=%CD%
 set MYPATH=%~dp0
@@ -21,6 +29,31 @@ for %%f in (%D%\*) do (
     call %MKLINK% %%~nxf %D%\%%~nxf 
 )
 
+rem the following code only gets elevated user's my doc path ...
+rem save My document path to var mydocuments
+rem for /f "tokens=3* delims= " %%a in ('reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "Personal"') do (set mydocuments=%%a %%b)
+rem echo %mydocuments%
 
+if exist c:\Users\murphytalk (
+   set MYHOME=c:\Users\murphytalk
+) else (
+  if exist c:\Users\murph (
+     set MYHOME=c:\Users\murph
+  )
+  else(
+     goto DONE
+  )
+)
+
+c:
+cd %MYHOME%
+set D=%MSYS2CONF%\home
+for %%f in (%D%\*) do (
+    rem use for/? to see explanation of all modifiers
+    call %MKLINK% %%~nxf %D%\%%~nxf 
+)
+
+
+:DONE
 %ORG_DIR:~0,2%
 cd %ORG_DIR%
