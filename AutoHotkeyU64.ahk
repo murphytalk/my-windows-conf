@@ -113,14 +113,7 @@ RunApp2("C:\Apps\Free-CommanderXE\FreeCommander.exe","FreeCommander")
 Return
 
 ^!e::
-SetTitleMatchMode 2
-IfWinExist .*emacs
-	WinActivate
-else{	
-	RunWait C:\Apps\emacs\bin\runemacs.exe
-	Sleep,60000
-	WinMaximize
-}
+RunApp2("C:\Apps\emacs\bin\runemacs.exe","ahk_class Emacs")
 return
 
 ^!g::
