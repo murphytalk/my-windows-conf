@@ -123,7 +123,7 @@ return
 
 ^!g::
 ;RunApp2("c:\msys64\my-msys2.cmd","ahk_class mintty")
-RunApp2("C:\Windows\System32\bash.exe ~","ahk_class ConsoleWindowClass")
+RunApp2("C:\Windows\System32\bash.exe ~","ahk_exe bash.exe")
 return
 
 ^!k::
