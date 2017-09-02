@@ -104,6 +104,10 @@ return
 RunApp2("c:\Apps\putty -load vm","murphy@arch-vm")
 Return
 
+#m::
+RunApp2("C:\Program Files (x86)\Google\Chrome\Application\chrome.exe","ahk_exe chrome.exe")
+Return
+
 ^!p::
 Run c:\Apps\putty
 return 
@@ -118,7 +122,8 @@ return
 
 ^!g::
 ;RunApp2("E:\work\msys2-config\msys2.cmd","ahk_class mintty")
-RunApp2("C:\Windows\System32\bash.exe ~","ahk_class ConsoleWindowClass")
+;RunApp2("C:\Windows\System32\bash.exe ~","ahk_class ConsoleWindowClass")
+RunApp2("C:\Windows\System32\bash.exe ~","ahk_exe bash.exe")
 return
 
 ^!k::
