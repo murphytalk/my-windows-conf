@@ -120,9 +120,13 @@ Return
 RunApp2("C:\Apps\emacs\bin\runemacs.exe","ahk_class Emacs")
 return
 
+#f::
+RunApp2("waterfox","ahk_class MozillaWindowClass")
+return
+
+
 ^!g::
-;RunApp2("E:\work\msys2-config\msys2.cmd","ahk_class mintty")
-;RunApp2("C:\Windows\System32\bash.exe ~","ahk_class ConsoleWindowClass")
+;RunApp2("c:\msys64\my-msys2.cmd","ahk_class mintty")
 RunApp2("C:\Windows\System32\bash.exe ~","ahk_exe bash.exe")
 return
 
