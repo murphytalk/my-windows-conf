@@ -83,7 +83,7 @@ EnumPuttyWnd()
 }
 
 #c::
-RunApp2("C:\Apps\ConEmu\ConEmu64.exe","ahk_class VirtualConsoleClass")
+RunApp2(UserProfile . "\scoop\apps\conemu\current\ConEmu64.exe","ahk_class VirtualConsoleClass")
 return 
 
 ^!n::
@@ -94,14 +94,9 @@ else
 return
 
 ^!v::
-IfWinExist SPICEc:0
-	WinActivate
-else
-	Run c:\tools\spice-client-win32-0.6.3\spicec.exe -h hp -p 5930
-return
 
 #v::
-RunApp2("c:\Apps\putty -load vm","murphy@arch-vm")
+RunApp2(UserProfile . "\scoop\apps\neovim\current\Neovim\bin\nvim-qt.exe", "ahk_exe nvim-qt.exe")
 Return
 
 #m::
@@ -121,7 +116,7 @@ RunApp2("C:\Apps\emacs\bin\runemacs.exe","ahk_class Emacs")
 return
 
 #f::
-RunApp2("waterfox","ahk_class MozillaWindowClass")
+RunApp2("firefox","ahk_class MozillaWindowClass")
 return
 
 
