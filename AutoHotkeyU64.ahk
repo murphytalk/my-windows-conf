@@ -103,6 +103,29 @@ Return
 RunApp2("C:\Program Files (x86)\Google\Chrome\Application\chrome.exe","ahk_exe chrome.exe")
 Return
 
+
+#b::
+;; legacy windows
+SetTitleMatchMode,3
+w := 952
+h := 823
+x := 2015
+y := 39
+WinMove, 2-BLOOMBERG, ,%x%, %y%, %w%, %h%
+WinMove, 1-BLOOMBERG, ,x - w , %y%, %w%, %h%
+WinMove, 3-BLOOMBERG, ,x - w , y + h, %w%, %h%
+WinMove, 4-BLOOMBERG, ,x , y + h, %w%, %h%
+;; All BBG windows
+WinGet,id,List,ahk_class wdm-DesktopWindow
+Loop, %id%
+{
+    this_id := id%A_Index%
+    WinActivate, ahk_id %this_id%
+    ;WinSet, Top, ,ahk_id %this_id%, , [0-9]-BLOOMBERG
+}
+return
+
+
 ^!p::
 Run c:\Apps\putty
 return 
