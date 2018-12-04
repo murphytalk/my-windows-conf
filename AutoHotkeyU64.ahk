@@ -142,6 +142,9 @@ return
 RunApp2("firefox","ahk_class MozillaWindowClass")
 return
 
+#n::
+WinActivate,  ahk_class ApplicationFrameWindow
+return
 
 ^!g::
 ;RunApp2("c:\msys64\my-msys2.cmd","ahk_class mintty")
