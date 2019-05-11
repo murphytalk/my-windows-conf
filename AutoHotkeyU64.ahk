@@ -110,10 +110,12 @@ SetTitleMatchMode,3
 w := 952
 h := 823
 x := 2015
-y := 39
+y := 0
+;; need this compensation to avoid a extra 16 px wide gap between windows, don't know why
+wx := 16 
 WinMove, 2-BLOOMBERG, ,%x%, %y%, %w%, %h%
-WinMove, 1-BLOOMBERG, ,x - w , %y%, %w%, %h%
-WinMove, 3-BLOOMBERG, ,x - w , y + h, %w%, %h%
+WinMove, 1-BLOOMBERG, ,x - w + wx , %y%, %w%, %h%
+WinMove, 3-BLOOMBERG, ,x - w + wx , y + h, %w%, %h%
 WinMove, 4-BLOOMBERG, ,x , y + h, %w%, %h%
 ;; All BBG windows
 WinGet,id,List,ahk_class wdm-DesktopWindow
