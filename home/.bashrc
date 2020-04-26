@@ -2,12 +2,17 @@
 # ~/.bashrc
 #
 
+if which lsb_release >/dev/null;then
+    . ~/.bash_ubuntu.rc
+fi
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
 alias y='yaourt'
 alias t='todo.sh -d ~/.todo.cfg'
+
 
 PS1='[\u@\h \W]\$ '
 

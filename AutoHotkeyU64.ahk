@@ -83,7 +83,7 @@ EnumPuttyWnd()
 }
 
 #c::
-RunApp2("C:\Apps\ConEmu\ConEmu64.exe","ahk_class VirtualConsoleClass")
+RunApp2("C:\Users\murph\scoop\apps\conemu\current\ConEmu64.exe","ahk_class VirtualConsoleClass")
 return 
 
 ^!n::
@@ -117,7 +117,7 @@ RunApp2("C:\Apps\Free-CommanderXE\FreeCommander.exe","FreeCommander")
 Return
 
 ^!e::
-RunApp2("C:\Apps\emacs\bin\runemacs.exe","ahk_class Emacs")
+RunApp2("C:\Users\murph\scoop\apps\emacs\current\bin\runemacs.exe","ahk_class Emacs")
 return
 
 #f::
