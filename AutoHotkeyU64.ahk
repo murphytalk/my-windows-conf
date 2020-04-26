@@ -83,8 +83,8 @@ EnumPuttyWnd()
 }
 
 #c::
-RunApp2("C:\Users\murph\scoop\apps\conemu\current\ConEmu64.exe","ahk_class VirtualConsoleClass")
-return 
+RunApp2("wt.exe","ahk_exe WindowsTerminal.exe")
+return
 
 ^!n::
 IfWinExist Untitled - Notepad
@@ -94,19 +94,39 @@ else
 return
 
 ^!v::
-IfWinExist SPICEc:0
-	WinActivate
-else
-	Run c:\tools\spice-client-win32-0.6.3\spicec.exe -h hp -p 5930
-return
 
 #v::
-RunApp2("c:\Apps\putty -load vm","murphy@arch-vm")
+RunApp2(UserProfile . "\scoop\apps\neovim\current\Neovim\bin\nvim-qt.exe", "ahk_exe nvim-qt.exe")
 Return
 
 #m::
 RunApp2("C:\Program Files (x86)\Google\Chrome\Application\chrome.exe","ahk_exe chrome.exe")
 Return
+
+
+#b::
+;; legacy windows
+SetTitleMatchMode,3
+w := 952
+h := 823
+x := 2015
+y := 0
+;; need this compensation to avoid a extra 16 px wide gap between windows, don't know why
+wx := 16 
+WinMove, 2-BLOOMBERG, ,%x%, %y%, %w%, %h%
+WinMove, 1-BLOOMBERG, ,x - w + wx , %y%, %w%, %h%
+WinMove, 3-BLOOMBERG, ,x - w + wx , y + h, %w%, %h%
+WinMove, 4-BLOOMBERG, ,x , y + h, %w%, %h%
+;; All BBG windows
+WinGet,id,List,ahk_class wdm-DesktopWindow
+Loop, %id%
+{
+    this_id := id%A_Index%
+    WinActivate, ahk_id %this_id%
+    ;WinSet, Top, ,ahk_id %this_id%, , [0-9]-BLOOMBERG
+}
+return
+
 
 ^!p::
 Run c:\Apps\putty
@@ -121,14 +141,13 @@ RunApp2("C:\Users\murph\scoop\apps\emacs\current\bin\runemacs.exe","ahk_class Em
 return
 
 #f::
-RunApp2("waterfox","ahk_class MozillaWindowClass")
+RunApp2("firefox","ahk_class MozillaWindowClass")
 return
 
-
-^!g::
-;RunApp2("c:\msys64\my-msys2.cmd","ahk_class mintty")
-RunApp2("C:\Windows\System32\bash.exe ~","ahk_exe bash.exe")
+#n::
+WinActivate,  ahk_class ApplicationFrameWindow
 return
+
 
 ^!k::
 RunApp2("C:\Apps\keepass\KeePass.exe","NewDataBase.kdbx.*")
