@@ -83,6 +83,10 @@ EnumPuttyWnd()
 }
 
 #c::
+RunApp2("C:\Users\murph\scoop\apps\vscode\current\Code.exe", "ahk_exe Code.exe")
+return
+
+^!c::
 RunApp2("wt.exe","ahk_exe WindowsTerminal.exe")
 return
 
@@ -96,7 +100,7 @@ return
 ^!v::
 
 #v::
-RunApp2(UserProfile . "\scoop\apps\neovim\current\Neovim\bin\nvim-qt.exe", "ahk_exe nvim-qt.exe")
+RunApp2(UserProfile . "\scoop\apps\sumatrapdf\current\SumatraPDF.exe", "ahk_exe SumatraPDF.exe")
 Return
 
 #m::
@@ -133,7 +137,8 @@ Run c:\Apps\putty
 return 
 
 ^!f::
-RunApp2("C:\Apps\Free-CommanderXE\FreeCommander.exe","FreeCommander")
+RunApp2("firefox","ahk_class MozillaWindowClass")
+;RunApp2("C:\Apps\Free-CommanderXE\FreeCommander.exe","FreeCommander")
 Return
 
 ^!e::
@@ -141,7 +146,7 @@ RunApp2("C:\Users\murph\scoop\apps\emacs\current\bin\runemacs.exe","ahk_class Em
 return
 
 #f::
-RunApp2("firefox","ahk_class MozillaWindowClass")
+RunApp2("explorer.exe" ,"ahk_exe Explorer.EXE")
 return
 
 #n::
