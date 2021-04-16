@@ -83,7 +83,7 @@ EnumPuttyWnd()
 }
 
 #c::
-RunApp2("C:\Users\murph\scoop\apps\vscode\current\Code.exe", "ahk_exe Code.exe")
+RunApp2(UserProfile . "\scoop\apps\vscode\current\Code.exe", "ahk_exe Code.exe")
 return
 
 ^!c::
@@ -142,7 +142,7 @@ RunApp2("firefox","ahk_class MozillaWindowClass")
 Return
 
 ^!e::
-RunApp2("C:\Users\murph\scoop\apps\emacs\current\bin\runemacs.exe","ahk_class Emacs")
+RunApp2(UserProfile . "\scoop\apps\emacs\current\bin\runemacs.exe","ahk_class Emacs")
 return
 
 #f::
@@ -150,12 +150,12 @@ RunApp2("explorer.exe" ,"ahk_exe Explorer.EXE")
 return
 
 #n::
-WinActivate,  ahk_class ApplicationFrameWindow
+RunApp2("msedge","ahk_exe msedge.exe")
 return
 
 
 ^!k::
-RunApp2("C:\Apps\keepass\KeePass.exe","NewDataBase.kdbx.*")
+RunApp2("C:\Users\murphy\scoop\apps\keepass\current\KeePass.exe","NewDataBase.kdbx.*")
 return
 
 
