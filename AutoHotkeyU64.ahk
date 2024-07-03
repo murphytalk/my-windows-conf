@@ -1,5 +1,6 @@
 ;SetTitleMatchMode RegEx
 UserProfile := EnvGet("USERPROFILE")
+LocalAppData:= EnvGet("LOCALAPPDATA")
 
 RunApp(cmd,&pid)
 {
@@ -11,7 +12,7 @@ RunApp(cmd,&pid)
   }    
 }
 
-RunApp2(cmd,title)
+RunAppMatchingTitle(cmd,title)
 {
   SetTitleMatchMode 2
   If !WinExist(title){
@@ -23,17 +24,27 @@ RunApp2(cmd,title)
 
 #c::
 {
-    RunApp2(UserProfile . "\scoop\apps\vscode\current\Code.exe", "ahk_exe Code.exe")
+    RunAppMatchingTitle(LocalAppData . "\Programs\Microsoft VS Code\Code.exe", "ahk_exe Code.exe")
+}
+
+#v::
+{
+    RunAppMatchingTitle("devenv.exe","ahk_exe devenv.exe")
+}
+
+^!v::
+{
+    RunAppMatchingTitle("neovide.exe","ahk_exe neovide.exe")
 }
 
 ^!c::
 {
-    RunApp2("wt.exe","ahk_exe WindowsTerminal.exe")
+    RunAppMatchingTitle("wt.exe","ahk_exe WindowsTerminal.exe")
 }
 
 ^!n::
 {
-    If WinExist "Untitled - Notepad"
+    If WinExist("Untitled - Notepad")
         WinActivate
     else
         Run "Notepad"
@@ -41,32 +52,27 @@ RunApp2(cmd,title)
 
 #n::
 {
-    RunApp2(UserProfile . "\scoop\apps\Logseq\current\Logseq.exe", "ahk_exe Logseq.exe")
+    RunAppMatchingTitle( LocalAppData . "\Logseq\Logseq.exe", "ahk_exe Logseq.exe")
 }
 
 ^!q::
 {
-    RunApp2("msedge.exe","ahk_exe msedge.exe")
+    RunAppMatchingTitle("msedge.exe","ahk_exe msedge.exe")
 }
 
 ;^!f::
-;RunApp2("firefox","ahk_class MozillaWindowClass")
-;RunApp2("C:\Apps\Free-CommanderXE\FreeCommander.exe","FreeCommander")
+;RunAppMatchingTitle("firefox","ahk_class MozillaWindowClass")
+;RunAppMatchingTitle("C:\Apps\Free-CommanderXE\FreeCommander.exe","FreeCommander")
 ;Return
 
 ^!e::
 {
-    RunApp2(UserProfile . "\scoop\apps\emacs\current\bin\runemacs.exe","ahk_class Emacs")
+    RunAppMatchingTitle("C:\Program Files\Emacs\emacs-29.1\bin\runemacs.exe","ahk_class Emacs")
 }
 
 #f::
 {
-    RunApp2("explorer.exe" ,"ahk_exe Explorer.EXE")
-}
-
-^!k::
-{
-    RunApp2(UserProfile . "\scoop\apps\keepass\current\KeePass.exe","ahk_exe KeePass.exe")
+    RunAppMatchingTitle("explorer.exe" ,"ahk_exe Explorer.EXE")
 }
 
 
