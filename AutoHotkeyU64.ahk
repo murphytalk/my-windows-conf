@@ -22,25 +22,26 @@ RunAppMatchingTitle(cmd,title)
   WinActivate
 }
 
-#c::
-{
-    RunAppMatchingTitle(LocalAppData . "\Programs\Microsoft VS Code\Code.exe", "ahk_exe Code.exe")
+MoveActiveWindow(x, y, width, height) {
+    ; Get the handle of the active window
+    hWnd := WinGetID("A")
+    ;WinMinimize hWnd
+    ; Move the active window
+    WinMove x, y, width, height, hWnd
 }
 
-#v::
-{
-    RunAppMatchingTitle("devenv.exe","ahk_exe devenv.exe")
-}
+; move to left screen
+#o::MoveActiveWindow(-8	, -8, 1936, 1168)
+; move to right screen
+#p::MoveActiveWindow( 1912, -972,3856,2128)
 
-^!v::
-{
-    RunAppMatchingTitle("neovide.exe","ahk_exe neovide.exe")
-}
+#c::RunAppMatchingTitle(LocalAppData . "\Programs\Microsoft VS Code\Code.exe", "ahk_exe Code.exe")
 
-^!c::
-{
-    RunAppMatchingTitle("wt.exe","ahk_exe WindowsTerminal.exe")
-}
+#v::RunAppMatchingTitle("devenv.exe","ahk_exe devenv.exe")
+
+^!v::RunAppMatchingTitle("neovide.exe","ahk_exe neovide.exe")
+
+^!c::RunAppMatchingTitle("wt.exe","ahk_exe WindowsTerminal.exe")
 
 ^!n::
 {
@@ -50,35 +51,15 @@ RunAppMatchingTitle(cmd,title)
         Run "Notepad"
 }
 
-#n::
-{
-    RunAppMatchingTitle( LocalAppData . "\Logseq\Logseq.exe", "ahk_exe Logseq.exe")
-}
+#n::RunAppMatchingTitle( LocalAppData . "\Logseq\Logseq.exe", "ahk_exe Logseq.exe")
 
-^!q::
-{
-    RunAppMatchingTitle("msedge.exe","ahk_exe msedge.exe")
-}
+^!q::RunAppMatchingTitle("msedge.exe","ahk_exe msedge.exe")
 
 ;^!f::
 ;RunAppMatchingTitle("firefox","ahk_class MozillaWindowClass")
 ;RunAppMatchingTitle("C:\Apps\Free-CommanderXE\FreeCommander.exe","FreeCommander")
 ;Return
 
-^!e::
-{
-    RunAppMatchingTitle("C:\Program Files\Emacs\emacs-29.1\bin\runemacs.exe","ahk_class Emacs")
-}
+^!e::RunAppMatchingTitle("C:\Program Files\Emacs\emacs-29.1\bin\runemacs.exe","ahk_class Emacs")
 
-#f::
-{
-    RunAppMatchingTitle("explorer.exe" ,"ahk_exe Explorer.EXE")
-}
-
-
-; Note: From now on whenever you run AutoHotkey directly, this script
-; will be loaded.  So feel free to customize it to suit your needs.
-
-; Please read the QUICK-START TUTORIAL near the top of the help file.
-; It explains how to perform common automation tasks such as sending
-; keystrokes and mouse clicks.  It also explains more about hotkeys.
+#f::RunAppMatchingTitle("explorer.exe" ,"ahk_exe Explorer.EXE")
