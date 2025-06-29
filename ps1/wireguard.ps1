@@ -33,7 +33,11 @@ param (
     [string]$RemoteConfigPath = '~/wireguard/cfg/peer_desktop/peer_desktop.conf',
 
     [string]$Profile = 'my-stargate-profile',
-    [string]$DryRun = $false
+
+    [switch]$startVmOnly,
+
+    [switch]$shutdown
+
 )
 
 # --- Configuration ---
@@ -267,6 +271,19 @@ if (-not (Test-IsAdministrator)) {
     exit 1
 }
 
+if ($shutdown) {
+    $uninstallSuccess = Uninstall-WireGuardTunnelService -WireGuardExePath $WireGuardExePath -TunnelName $TunnelName
+    Write-Host "Shutting down EC2 instance '$InstanceId'..."
+    try {
+        aws ec2 stop-instances --instance-ids $InstanceId --profile $Profile | Out-Null
+        Write-Host "EC2 instance '$InstanceId' shutdown successfully." -ForegroundColor Green
+    } catch {
+        Write-Error "Failed to shutdown EC2 instance '$InstanceId'. Error: $($_.Exception.Message)"
+        exit 1
+    }
+    exit 0
+}
+
 # 2. Wait for EC2 instance to be running (and start if stopped)
 $instanceReady = Wait-EC2InstanceRunning -InstanceId $InstanceId
 if (-not $instanceReady) {
@@ -281,6 +298,10 @@ if (-not $ec2PublicIp) {
     exit 1
 }
 
+if ($startVmOnly) {
+    Write-Host "EC2 instance '$InstanceId' is running. Exiting."
+    exit 0
+}
 
 # 4. Download WireGuard Config
 $downloadSuccess = Download-WireGuardConfig `
