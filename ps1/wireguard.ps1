@@ -181,8 +181,8 @@ function Uninstall-WireGuardTunnelService {
         [string]$WireGuardExePath,
         [string]$TunnelName
     )
-    Write-Host "Checking if WireGuard tunnel service '$TunnelName' exists..."
-    $serviceName = "WireGuardTunnel$($TunnelName)"
+    $serviceName = "WireGuardTunnel`$$TunnelName"
+    Write-Host "Checking if WireGuard tunnel service $serviceName exists..."
     $service = Get-Service -Name $serviceName -ErrorAction SilentlyContinue
 
     if ($service) {
