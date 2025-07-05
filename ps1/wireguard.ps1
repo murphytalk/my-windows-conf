@@ -156,6 +156,8 @@ function Download-WireGuardConfig {
     try {
         $scpCommand = "scp"
         $scpArguments = @(
+            "-o", "StrictHostKeyChecking=no",
+            "-o", "UserKnownHostsFile=NUL",
             "-i", "$SSHKeyPath",
             "$EC2User@$PublicIp`:$RemoteConfigPath",
             "$LocalConfigFilePath"
@@ -269,6 +271,15 @@ if (-not (Test-IsAdministrator)) {
     Write-Error "This script must be run with Administrator privileges to install the WireGuard tunnel service."
     Write-Error "Please right-click PowerShell and select 'Run as Administrator'."
     exit 1
+}
+
+# Check if the tunnel is already running. If so, treat it as a shutdown command.
+$serviceNameForCheck = "WireGuardTunnel`$TunnelName"
+$service = Get-Service -Name $serviceNameForCheck -ErrorAction SilentlyContinue
+if ($service -and $service.Status -eq 'Running') {
+    Write-Host "WireGuard tunnel '$TunnelName' is already running. Shutting it down now." -ForegroundColor Yellow
+    # Setting the shutdown flag to true to trigger the shutdown logic below
+    $shutdown = $true
 }
 
 if ($shutdown) {
