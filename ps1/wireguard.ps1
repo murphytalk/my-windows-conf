@@ -55,6 +55,18 @@ function Test-IsAdministrator {
     return $isAdministrator
 }
 
+function Get-EC2InstanceState {
+    param (
+        [string]$InstanceId
+    )
+    Write-Host "Attempting to get EC2 instance state for instance ID: $InstanceId..."
+    return aws ec2 describe-instances --profile $Profile `
+                --instance-ids $InstanceId `
+                --query "Reservations[0].Instances[0].State.Name" `
+                --output text `
+                --no-cli-pager 
+}
+
 function Wait-EC2InstanceRunning {
     param (
         [string]$InstanceId,
@@ -65,12 +77,7 @@ function Wait-EC2InstanceRunning {
 
     for ($i = 1; $i -le $MaxRetries; $i++) {
         try {
-            $instanceState = aws ec2 describe-instances --profile $Profile `
-                --instance-ids $InstanceId `
-                --query "Reservations[0].Instances[0].State.Name" `
-                --output text `
-                --no-cli-pager 
-
+            $instanceState =  Get-EC2InstanceState -InstanceId $InstanceId
             if ($instanceState -eq "running") {
                 Write-Host "EC2 instance '$InstanceId' is running." -ForegroundColor Green
                 return $true
@@ -280,6 +287,13 @@ if ($service -and $service.Status -eq 'Running') {
     Write-Host "WireGuard tunnel '$TunnelName' is already running. Shutting it down now." -ForegroundColor Yellow
     # Setting the shutdown flag to true to trigger the shutdown logic below
     $shutdown = $true
+}
+else {
+    $instanceState =  Get-EC2InstanceState -InstanceId $InstanceId
+    if ($instanceState -eq "running") {
+        Write-Host "EC2 instance '$InstanceId' is already running. Shutting it down now." -ForegroundColor Yellow
+        $shutdown = $true
+    }
 }
 
 if ($shutdown) {
