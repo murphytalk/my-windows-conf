@@ -68,13 +68,13 @@ MoveActiveWindow(x, y, width, height) {
 {
     ; --- Configuration ---
     ; Set the full path to your PowerShell script here.
-    psScriptPath := "D:\work\my-windows-conf\ps1\wireguard.ps1"
+    psScriptPath := "D:\work\home-server\vpn\wireguard\wireguard.ps1"
 
     ; --- Execution ---
     try
     {
         ; Use Run with *RunAs to request Administrator privileges.
-        Run '*RunAs powershell.exe -NoProfile -ExecutionPolicy Bypass -File "' . psScriptPath . '"'
+        Run '*RunAs powershell.exe -NoProfile -ExecutionPolicy Bypass -File "' . psScriptPath . '" -UseWSL'
     }
     catch
     {
