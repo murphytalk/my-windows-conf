@@ -1,0 +1,41 @@
+#Requires AutoHotkey v2.0
+
+; Hotkey: Ctrl + Win + Alt + G
+; Action: Runs the wireguard.ps1 PowerShell script with Administrator privileges to start the VPN.
+
+^#!g::
+{
+    ; --- Configuration ---
+    ; Set the full path to your PowerShell script here.
+    psScriptPath := "D:\work\my-windows-conf\ps1\wireguard.ps1"
+
+    ; --- Execution ---
+    try
+    {
+        ; Use Run with *RunAs to request Administrator privileges.
+        Run, '*RunAs powershell.exe -NoProfile -ExecutionPolicy Bypass -File "' . psScriptPath . '"'
+    }
+    catch
+    {
+        MsgBox "Failed to run the script. Please check the path and ensure AutoHotkey has the necessary permissions."
+    }
+}
+
+; Hotkey: Ctrl + Win + Alt + S
+; Action: Runs the wireguard.ps1 PowerShell script with the -shutdown parameter to stop the VPN.
+
+^#!s::
+{
+    ; --- Configuration ---
+    psScriptPath := "D:\work\my-windows-conf\ps1\wireguard.ps1"
+
+    ; --- Execution ---
+    try
+    {
+        Run, '*RunAs powershell.exe -NoProfile -ExecutionPolicy Bypass -File "' . psScriptPath . '" -shutdown'
+    }
+    catch
+    {
+        MsgBox "Failed to run the shutdown script. Please check the path and ensure AutoHotkey has the necessary permissions."
+    }
+}
